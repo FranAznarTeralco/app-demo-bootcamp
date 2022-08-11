@@ -15,7 +15,7 @@ pipeline {
 
     stage('Cloning Git') {
       steps {
-        git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'master', credentialsId: 'devcenter-github-new', poll: true)
+        git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
       }
     }
 
