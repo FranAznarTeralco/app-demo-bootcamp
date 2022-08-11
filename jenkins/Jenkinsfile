@@ -13,6 +13,11 @@ pipeline {
         sh '''echo "PATH = ${M2_HOME}/bin:${PATH}" && echo "M2_HOME = /opt/maven"'''
       }
     }
+    stage('Cloning Git') {
+        steps {
+            git([url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'master', credentialsId: 'devcenter-github'])
+        }
+    }
 
   }
   environment {
