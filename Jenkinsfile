@@ -1,5 +1,4 @@
 pipeline {
-
     environment {
         imagename = 'franaznarteralco/backend-demo'
         registryCredential = 'devcenter-dockerhub'
