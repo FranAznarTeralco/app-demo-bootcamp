@@ -21,6 +21,12 @@ echo "M2_HOME = /opt/maven"'''
       }
     }
 
+    stage('Build Docker Image') {
+      steps {
+        dockerNode(image: 'openjdk:8-jdk-alpine')
+      }
+    }
+
   }
   environment {
     imagename = 'franaznarteralco/backend-demo'
