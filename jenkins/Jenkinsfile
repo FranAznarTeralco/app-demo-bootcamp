@@ -1,0 +1,23 @@
+pipeline {
+  agent {
+    docker {
+      image 'openjdk:8-jdk-alpine'
+      args '''-v $HOME/.m2:/root/.m2
+'''
+    }
+
+  }
+  stages {
+    stage('Initialize Maven') {
+      steps {
+        sh '''echo "PATH = ${M2_HOME}/bin:${PATH}"
+echo "M2_HOME = /opt/maven"'''
+      }
+    }
+
+  }
+  environment {
+    imagename = 'franaznarteralco/backend-demo'
+    registryCredential = 'devcenter-dockerhub'
+  }
+}
