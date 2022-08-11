@@ -1,17 +1,21 @@
 pipeline {
+
+    tools {
+        maven "MAVEN"
+        jdk "JDK"
+    }
+
   agent {
     docker {
       image 'openjdk:8-jdk-alpine'
-      args '''-v $HOME/.m2:/root/.m2
-'''
+      args '''-v $HOME/.m2:/root/.m2'''
     }
 
   }
   stages {
     stage('Initialize Maven') {
       steps {
-        sh '''echo "PATH = ${M2_HOME}/bin:${PATH}"
-echo "M2_HOME = /opt/maven"'''
+        sh '''echo "PATH = ${M2_HOME}/bin:${PATH}" && echo "M2_HOME = /opt/maven"'''
       }
     }
 
