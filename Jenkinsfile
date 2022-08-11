@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Cloning Git') {
             steps {
-                git([url: 'https://FranAznarTeralco@bitbucket.org/franaznarteralco/spring-boot-angular-14-crud-example.git', branch: 'master', credentialsId: 'devcenter-bitbucket-user-token'])
+                git([url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'master', credentialsId: 'devcenter-github'])
             }
         }
 //         stage('Build') {
