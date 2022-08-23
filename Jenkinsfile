@@ -21,7 +21,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        dir(path: '/var/lib/jenkins/workspace/spring-boot-angular-14-crud-example/spring-boot-server/jenkins') {
+        dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server/jenkins') {
           sh 'mvn -B -DskipTests clean install'
         }
 
