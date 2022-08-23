@@ -21,7 +21,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server/jenkins') {
+        dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
           sh 'mvn -B -DskipTests clean install'
         }
 
