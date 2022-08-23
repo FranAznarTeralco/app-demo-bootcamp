@@ -22,7 +22,7 @@ pipeline {
     stage('Build Java Artifact') {
         steps {
             dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-              sh 'mvn -B -DskipTests clean install'
+                sh 'mvn -B -DskipTests clean install'
             }
         }
         steps {
