@@ -1,6 +1,4 @@
 
-def customImage = ""
-
 pipeline {
 
     agent any
@@ -26,11 +24,12 @@ pipeline {
         }
     }
 
-    stage('Build Image with Artifact') {
+    stage('Build image and push to registry') {
         steps {
             dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-                customImage = docker.build("franaznarteralco/spring-boot-server:${env.BUILD_ID}")
-//                 sh 'docker build -t franaznarteralco/spring-boot-server .'
+                def customImage = docker.build("franaznarteralco/spring-boot-server:${env.BUILD_ID}")
+                customImage.push('test')
+
             }
         }
     }
