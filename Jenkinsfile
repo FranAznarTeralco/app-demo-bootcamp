@@ -1,8 +1,8 @@
-
 pipeline {
 
     environment {
-        registry = 'franaznarteralco/backend-demo'
+        registryBackend = 'franaznarteralco/backend-demo'
+        registryFrontend = 'franaznarteralco/frontend-demo'
         registryCredential = 'devcenter-dockerhub'
     }
 
@@ -29,11 +29,32 @@ pipeline {
             }
         }
 
-        stage('Build image & Push to registry') {
+        stage('Build Backend image & Push to registry') {
             steps {
                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
                     script {
-                        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                        dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
+                        docker.withRegistry( '', registryCredential) {
+                            dockerImage.push()
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build NPM Artifact') {
+            steps {
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/angular-14-client') {
+                    sh 'npm install && npm build'
+                }
+            }
+        }
+
+        stage('Build Frontend image & Push to registry') {
+            steps {
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/angular-14-client') {
+                    script {
+                        dockerImage = docker.build registryFrontend + ":$BUILD_NUMBER"
                         docker.withRegistry( '', registryCredential) {
                             dockerImage.push()
                         }
