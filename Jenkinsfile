@@ -1,5 +1,5 @@
 
-def customImage
+def customImage = ""
 
 pipeline {
 
