@@ -4,6 +4,8 @@ pipeline {
         registryBackend = 'franaznarteralco/backend-demo'
         registryFrontend = 'franaznarteralco/frontend-demo'
         registryCredential = 'devcenter-dockerhub'
+        NPM_CONFIG_CACHE = "/var/jenkins_home/workspace/.npm"
+
     }
 
     agent any
@@ -45,7 +47,7 @@ pipeline {
         stage('Build NPM Artifact') {
             steps {
                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/angular-14-client') {
-                    sh 'chmod +x . && npm install && npm run build'
+                    sh 'npm install && npm run build'
                 }
             }
         }
