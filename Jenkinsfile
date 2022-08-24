@@ -4,8 +4,7 @@ pipeline {
         registryBackend = 'franaznarteralco/backend-demo'
         registryFrontend = 'franaznarteralco/frontend-demo'
         registryCredential = 'devcenter-dockerhub'
-        NPM_CONFIG_CACHE = "/var/jenkins_home/workspace/.npm"
-
+        NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
     }
 
     agent any
