@@ -34,14 +34,6 @@ pipeline {
         }
     }
 
-    stage('Push Backend app image to Registry') {
-        steps {
-            dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-                    customImage.push('test')
-            }
-        }
-    }
-
 }
 
     environment {
