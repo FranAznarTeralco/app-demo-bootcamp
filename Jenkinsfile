@@ -4,7 +4,7 @@ pipeline {
         registryBackend = 'franaznarteralco/backend-demo'
         registryFrontend = 'franaznarteralco/frontend-demo'
         registryCredential = 'devcenter-dockerhub'
-        NPM_CONFIG_CACHE = "/var/jenkins_home/.npm"
+        NPM_CONFIG_CACHE = "/var/jenkins_home/workespace/app-demo-bootcamp_main.npm/angular-14-client@tmp/"
     }
 
     agent any
