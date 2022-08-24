@@ -2,7 +2,7 @@
 pipeline {
 
     environment {
-        imagename = 'franaznarteralco/backend-demo'
+        registry = 'franaznarteralco/backend-demo'
         registryCredential = 'devcenter-dockerhub'
     }
 
@@ -13,40 +13,32 @@ pipeline {
             steps {
                 sh 'echo "PATH = ${M2_HOME}/bin:${PATH}" && echo "M2_HOME = /opt/maven"'
             }
-    }
-
-    stage('Cloning Git') {
-        steps {
-            git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
         }
-    }
 
-    stage('Build Java Artifact') {
-        steps {
-            dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-                sh 'mvn -B -DskipTests clean install'
+        stage('Cloning Git') {
+            steps {
+                git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
             }
         }
-    }
 
-    stage('Build image with Java artifact') {
-        steps {
-            dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-              sh 'docker build -t franaznarteralco/spring-boot-server:test-' + ${env.BUILD_ID} + ' .'
+        stage('Build Java Artifact') {
+            steps {
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
+                    sh 'mvn -B -DskipTests clean install'
+                }
             }
         }
-    }
 
-    stage('Deploy Image') {
-        steps{
-            script {
-                docker.withRegistry( '', registryCredential) {
-                    dockerImage.push()
+        stage('Build image & Push to registry') {
+            steps {
+                script {
+                    sh 'cd /var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server'
+                    docker.build registry + ":$BUILD_NUMBER"
+                    docker.withRegistry( '', registryCredential) {
+                        dockerImage.push()
+                    }
                 }
             }
         }
     }
-
-}
-
 }
