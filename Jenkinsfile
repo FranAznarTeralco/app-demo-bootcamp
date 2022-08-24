@@ -32,7 +32,7 @@ pipeline {
     stage('Build image with Java artifact') {
         steps {
             dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-              sh 'docker build -t franaznarteralco/spring-boot-server:test-${env.BUILD_ID} .'
+              sh 'docker build -t franaznarteralco/spring-boot-server:test-'${env.BUILD_ID}' .'
             }
         }
     }
