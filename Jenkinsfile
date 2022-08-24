@@ -45,7 +45,7 @@ pipeline {
         stage('Build NPM Artifact') {
             steps {
                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/angular-14-client') {
-                    sh 'npm install && npm run build'
+                    sh 'chmod +x . && npm install && npm run build'
                 }
             }
         }
