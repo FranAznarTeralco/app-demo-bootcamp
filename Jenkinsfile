@@ -33,7 +33,7 @@ pipeline {
             steps {
                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
                     script {
-                        docker.build registry + ":$BUILD_NUMBER"
+                        dockerImage = docker.build registry + ":$BUILD_NUMBER"
                         docker.withRegistry( '', registryCredential) {
                             dockerImage.push()
                         }
