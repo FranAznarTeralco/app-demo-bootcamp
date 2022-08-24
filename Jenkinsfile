@@ -31,11 +31,12 @@ pipeline {
 
         stage('Build image & Push to registry') {
             steps {
-                script {
-                    sh 'cd /var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server'
-                    docker.build registry + ":$BUILD_NUMBER"
-                    docker.withRegistry( '', registryCredential) {
-                        dockerImage.push()
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
+                    script {
+                        docker.build registry + ":$BUILD_NUMBER"
+                        docker.withRegistry( '', registryCredential) {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
