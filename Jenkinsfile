@@ -1,6 +1,7 @@
-pipeline {
 
-    def customImage
+def customImage
+
+pipeline {
 
     agent any
 
