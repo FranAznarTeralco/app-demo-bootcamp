@@ -1,6 +1,11 @@
 
 pipeline {
 
+    environment {
+        imagename = 'franaznarteralco/backend-demo'
+        registryCredential = 'devcenter-dockerhub'
+    }
+
     agent any
 
     stages {
@@ -24,21 +29,24 @@ pipeline {
         }
     }
 
-    stage('Build image and push to registry') {
+    stage('Build image with Java artifact') {
         steps {
             dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-                def customImage = docker.build("franaznarteralco/spring-boot-server:${env.BUILD_ID}")
-                customImage.push('test')
+              sh 'docker build -t franaznarteralco/spring-boot-server:test-${env.BUILD_ID} .'
+            }
+        }
+    }
 
+    stage('Deploy Image') {
+        steps{
+            script {
+                docker.withRegistry( '', registryCredential) {
+                    dockerImage.push()
+                }
             }
         }
     }
 
 }
-
-    environment {
-        imagename = 'franaznarteralco/backend-demo'
-        registryCredential = 'devcenter-dockerhub'
-    }
 
 }
