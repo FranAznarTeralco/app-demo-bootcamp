@@ -43,19 +43,14 @@ pipeline {
 //             }
 //         }
 
-//         stage('Build NPM Artifact') {
-//             steps {
-//                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/angular-14-client') {
-//                     sh 'npm cache clean && npm install && npm run build'
-//                 }
-//             }
-//         }
-
         stage('Build NPM Artifact') {
             steps {
-               sh 'npm install'
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/angular-14-client') {
+                    sh 'npm install && npm run build'
+                }
             }
         }
+
 
         stage('Build Frontend image & Push to registry') {
             steps {
