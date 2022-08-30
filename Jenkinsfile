@@ -21,27 +21,27 @@ pipeline {
                 git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
             }
         }
-//
-//         stage('Build Java Artifact') {
-//             steps {
-//                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-//                     sh 'mvn -B -DskipTests clean install'
-//                 }
-//             }
-//         }
 
-//         stage('Build Backend image & Push to registry') {
-//             steps {
-//                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
-//                     script {
-//                         dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
-//                         docker.withRegistry( '', registryCredential) {
-//                             dockerImage.push()
-//                         }
-//                     }
-//                 }
-//             }
-//         }
+        stage('Build Java Artifact') {
+            steps {
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
+                    sh 'mvn -B -DskipTests clean install'
+                }
+            }
+        }
+
+        stage('Build Backend image & Push to registry') {
+            steps {
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
+                    script {
+                        dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
+                        docker.withRegistry( '', registryCredential) {
+                            dockerImage.push()
+                        }
+                    }
+                }
+            }
+        }
 
         stage('Build NPM Artifact') {
             steps {
