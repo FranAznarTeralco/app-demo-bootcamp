@@ -14,11 +14,11 @@ pipeline {
     }
 
     stages {
-        stage('Cloning Git Backend Demo') {
-            steps {
-                git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
-            }
-        }
+//         stage('Cloning Git Backend Demo') {
+//             steps {
+//                 git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
+//             }
+//         }
 
         stage('Build Java Artifact') {
             steps {
@@ -46,11 +46,11 @@ pipeline {
             }
         }
 
-        stage('Cloning Git Frontend Demo') {
-            steps {
-                git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
-            }
-        }
+//         stage('Cloning Git Frontend Demo') {
+//             steps {
+//                 git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
+//             }
+//         }
 
         stage('Build NPM Artifact') {
             agent {
