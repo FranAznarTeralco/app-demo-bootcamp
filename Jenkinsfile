@@ -14,34 +14,13 @@ pipeline {
     }
 
     stages {
-        stage('Initialize Maven') {
-            agent {
-               node {
-                   label 'node-java'
-               }
-            }
-            steps {
-                sh 'echo "PATH = ${M2_HOME}/bin:${PATH}" && echo "M2_HOME = /opt/maven"'
-            }
-        }
-
-        stage('Cloning Git') {
-            agent {
-               node {
-                   label 'node-java'
-               }
-            }
+        stage('Cloning Git Backend Demo') {
             steps {
                 git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
             }
         }
 
         stage('Build Java Artifact') {
-            agent {
-               node {
-                   label 'node-java'
-               }
-            }
             steps {
                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
                     sh 'mvn -B -DskipTests clean install'
@@ -52,7 +31,7 @@ pipeline {
         stage('Build Backend image & Push to registry') {
             agent {
                node {
-                   label 'node-nodejs'
+                   label 'node-java'
                }
             }
             steps {
@@ -64,6 +43,12 @@ pipeline {
                         }
                     }
                 }
+            }
+        }
+
+        stage('Cloning Git Frontend Demo') {
+            steps {
+                git(url: 'https://github.com/FranAznarTeralco/app-demo-bootcamp.git', branch: 'main', changelog: true, credentialsId: 'devcenter-github', poll: true)
             }
         }
 
