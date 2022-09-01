@@ -1,10 +1,6 @@
 pipeline {
 
-    agent {
-       node {
-           label 'node-java'
-       }
-    }
+    agent none
 
     environment {
         registryBackend = 'franaznarteralco/backend-demo'
@@ -21,10 +17,15 @@ pipeline {
 //         }
 
         stage('Build Java Artifact') {
+            agent {
+               node {
+                   label 'node-java'
+               }
+            }
             steps {
-//                 dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
+                dir(path: '/var/jenkins_home/workspace/app-demo-bootcamp_main/spring-boot-server') {
                     sh 'mvn -B -DskipTests clean install'
-//                 }
+                }
             }
         }
 
