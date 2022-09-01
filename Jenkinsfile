@@ -7,8 +7,6 @@ pipeline {
         NPM_CONFIG_CACHE = "/var/jenkins_home/workespace/app-demo-bootcamp_main.npm/angular-14-client@tmp/"
     }
 
-
-
     stages {
         stage('Initialize Maven') {
             agent {
